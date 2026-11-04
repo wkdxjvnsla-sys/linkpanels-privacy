@@ -38,7 +38,7 @@
   <div class="brand"><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="5" y="5" width="54" height="54" rx="15" fill="#a44f35"/><g fill="none" stroke="#fff8f1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="17" y="17" width="21" height="25" rx="4"/><path d="M27 23h16a4 4 0 0 1 4 4v16a4 4 0 0 1-4 4H29a4 4 0 0 1-4-4v-1M23 25h9M23 31h7M34 35h7M34 41h7"/></g></svg>LinkPanels <span>AI</span></div>
 
   <h1>개인정보처리방침</h1>
-  <p class="meta">시행일: 2026년 10월 31일 · 적용 버전: 0.3.1 이상</p>
+  <p class="meta">시행일: 2026년 11월 4일 · 적용 버전: 0.3.7 이상</p>
 
   <p>LinkPanels AI(이하 "확장")는 Chrome 새 탭을 개인 링크 보드로 바꾸는 브라우저 확장입니다. 이 방침은 확장이 어떤 정보를 다루고, 어디에 저장하며, 언제 누구에게 보내는지 설명합니다.</p>
 
@@ -61,6 +61,7 @@
         <tr><td>열린 탭·최근 닫은 탭 목록 (제목·주소)</td><td>'탭 모아보기' 화면 표시, 사용자가 고른 탭 저장·이동·복원</td><td>저장하지 않음. 사용자가 보드에 저장한 탭만 보드에 남음</td></tr>
         <tr><td>Chrome 북마크 (폴더 이름, 북마크 제목·주소)</td><td>사용자가 'Chrome 북마크 가져오기'를 누를 때 보드로 가져오기</td><td>가져온 북마크만 보드에 저장. 원래 Chrome 북마크는 바꾸지 않음</td></tr>
         <tr><td>자주 방문한 사이트 목록 (제목·주소, 최대 20개)</td><td>사용자가 '자주 가는 사이트'를 누를 때 고른 사이트를 보드에 담기</td><td>목록은 저장하지 않음. 사용자가 고른 사이트만 보드에 남음</td></tr>
+        <tr><td>사이트 파비콘</td><td>보드·빠른 접근·탭 목록에서 사이트 구별</td><td>Chrome 내부 파비콘 경로를 사용합니다. 별도 외부 아이콘 서비스로 링크를 전송하지 않습니다.</td></tr>
         <tr><td>동기화 사본 (링크 보드 전체를 압축한 사본)</td><td>사용자가 '다른 기기와 동기화'를 켠 경우 같은 Google 계정의 다른 Chrome과 보드 맞추기</td><td>Chrome 동기화(chrome.storage.sync)를 통해 사용자의 Google 계정에 저장. 개발자는 이 사본에 접근할 수 없음. API 키는 포함하지 않음</td></tr>
       </tbody>
     </table>
@@ -85,13 +86,17 @@
   </ul>
 
   <h2 id="permissions">4. 권한</h2>
+  <p>0.3.7부터 보드와 브라우저 기능 권한은 Chrome 설치 승인 화면에서 함께 요청합니다. 기존 버전에서 업데이트할 때에는 새 권한에 대한 재승인이 필요할 수 있습니다.</p>
   <ul>
     <li><strong>storage:</strong> 보드, 설정, API 키를 이 기기에 저장합니다.</li>
-    <li><strong>tabs, sessions (선택):</strong> '탭 모아보기'를 사용할 때만 요청하며, 거절해도 보드는 그대로 쓸 수 있습니다.</li>
-    <li><strong>bookmarks (선택):</strong> 'Chrome 북마크 가져오기'를 누를 때만 요청하며, 북마크를 읽기만 하고 바꾸거나 외부로 보내지 않습니다.</li>
-    <li><strong>topSites (선택):</strong> '자주 가는 사이트'를 누를 때만 요청하며, Chrome이 집계한 자주 방문한 사이트 목록만 읽습니다. 방문 기록 전체는 읽지 않고 외부로 보내지 않습니다.</li>
-    <li><strong>AI 제공사 주소 접근 (선택):</strong> AI 연결을 저장할 때 고른 제공사 한 곳에 대해서만 요청합니다.</li>
+    <li><strong>tabs, sessions:</strong> 사용자가 '탭 모아보기'를 열 때 열린 탭과 최근 닫은 탭을 표시하고, 선택한 탭의 이동·저장·복원을 수행합니다.</li>
+    <li><strong>bookmarks:</strong> 사용자가 'Chrome 북마크 가져오기'를 누를 때 북마크를 읽습니다. 원래 Chrome 북마크는 바꾸거나 외부로 보내지 않습니다.</li>
+    <li><strong>topSites:</strong> 사용자가 '자주 가는 사이트'를 누를 때 Chrome이 집계한 사이트 목록을 읽습니다. 전체 방문 기록은 읽지 않고 외부로 보내지 않습니다.</li>
+    <li><strong>favicon:</strong> 보드와 탭 목록에 Chrome이 제공하는 사이트 아이콘을 표시합니다. 별도 외부 파비콘 서비스는 사용하지 않습니다.</li>
+    <li><strong>AI 제공사 주소 접근 (선택):</strong> AI 연결에서 사용자가 고른 제공사 한 곳에 대해서만 요청합니다.</li>
   </ul>
+  <p>설치 권한 승인만으로 탭이나 북마크를 자동으로 보드에 가져오거나 AI에 보내지 않습니다.</p>
+  <p class="note">0.3.6 이하에서는 tabs, sessions, bookmarks, topSites를 각 기능을 사용할 때 선택 권한으로 요청합니다.</p>
 
   <h2 id="delete">5. 정보 삭제</h2>
   <ul>
